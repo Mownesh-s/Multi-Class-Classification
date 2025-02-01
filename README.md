@@ -1,110 +1,166 @@
 # Multiclass Classification on Diabetes Dataset
 
-## Table of Contents
+## 📌 Table of Contents
 - [Project Description](#project-description)
 - [Dataset](#dataset)
 - [Technologies Used](#technologies-used)
-- [Key Steps](#key-steps)
+- [Project Workflow](#project-workflow)
 - [Models Implemented](#models-implemented)
 - [Hyperparameter Tuning](#hyperparameter-tuning)
 - [Results](#results)
+- [Visualization](#visualization)
 - [Conclusion](#conclusion)
 - [How to Run](#how-to-run)
+- [Project Structure](#project-structure)
+- [Future Enhancements](#future-enhancements)
+- [License](#license)
 
 ---
 
-## Project Description
-This project focuses on **multiclass classification** to predict the severity of diabetes using machine learning models. Various classification models were applied and evaluated using metrics such as **accuracy, precision, recall, F1-score, and AUC-ROC**.
+## 📖 Project Description
+This project performs **Multiclass Classification** to predict diabetes status (`Diabetes_012`) based on various health indicators. The dataset contains three classes:
+- **0**: No Diabetes
+- **1**: Pre-Diabetes
+- **2**: Diabetes
+
+### Key Features:
+- Performed **Data Preprocessing**, **Feature Engineering**, and **Class Balancing**.
+- Applied **SMOTE** to handle class imbalance.
+- Used **Multiple Machine Learning Models** including:
+  - Random Forest
+  - XGBoost
+  - Gradient Boosting
+  - LightGBM
+- **Hyperparameter tuning** was performed to improve accuracy.
 
 ---
 
-## Dataset
-- The dataset used is `diabetesML.csv`, containing patient health information.
-- Features include **BMI, Mental Health, Physical Health, Age, and more**.
-- The target variable is `Diabetes_012`, which has three classes: `0 (No Diabetes)`, `1 (Prediabetes)`, and `2 (Diabetes)`.
-- Data preprocessing steps include:
-  - Handling missing values
-  - Removing duplicates
-  - Removing outliers using the IQR method
-  - Scaling numerical features using MinMaxScaler
-  - Handling class imbalance using **SMOTE** (Synthetic Minority Over-sampling Technique).
+## 📊 Dataset
+- **Dataset Name:** `diabetesML.csv`
+- **Source:** [CDC Behavioral Risk Factor Surveillance System (BRFSS)](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)
+- **Features:**
+  - Various health factors like **BMI, Age, Physical Activity, Mental Health**.
+  - **Target Variable (`Diabetes_012`)**:
+    - 0 → No Diabetes
+    - 1 → Pre-Diabetes
+    - 2 → Diabetes
+- **Preprocessing:**
+  - Removed **irrelevant columns** (Education, Income).
+  - **Handled outliers** using IQR-based filtering.
+  - **Normalized numerical features** using **MinMax Scaling**.
 
 ---
 
-## Technologies Used
-- **Programming Language**: Python
-- **Libraries**:
-  - `pandas` and `numpy` for data manipulation
-  - `matplotlib` and `seaborn` for data visualization
-  - `scikit-learn` for preprocessing, modeling, and evaluation
-  - `imbalanced-learn` for handling class imbalance (SMOTE)
-  - `XGBoost` and `LightGBM` for boosting algorithms
+## 🛠 Technologies Used
+- **Programming Language:** Python
+- **Libraries Used:**
+  - 📊 `pandas`, `numpy` → Data manipulation
+  - 🎨 `matplotlib`, `seaborn` → Data visualization
+  - 🤖 `scikit-learn` → Machine learning models & preprocessing
+  - 🔄 `imbalanced-learn (SMOTE)` → Class balancing
+  - ⚡ `XGBoost`, `LightGBM` → Boosting algorithms
 
 ---
 
-## Key Steps
-1. **Data Exploration**:
-   - Identified numerical and categorical variables.
-   - Visualized feature distributions and class imbalances.
-2. **Feature Engineering**:
-   - Handled missing values and removed redundant features.
-   - Applied MinMax scaling for numerical features.
-3. **Class Balancing**:
-   - Applied **SMOTE** to balance the dataset.
-4. **Model Training**:
-   - Trained multiple classification models.
-5. **Evaluation**:
-   - Used metrics like accuracy, precision, recall, and ROC curves.
-6. **Hyperparameter Tuning**:
-   - Applied `RandomizedSearchCV` for parameter optimization.
+## 🔄 Project Workflow
+### **1️⃣ Data Exploration**
+- Checked class distribution and feature statistics.
+- Visualized correlation among features.
+
+### **2️⃣ Data Preprocessing**
+- Removed duplicates.
+- Dropped **Education & Income** columns (low correlation with target).
+- **Handled Outliers** using IQR.
+- **Normalized Features** with **MinMax Scaling**.
+
+### **3️⃣ Handling Class Imbalance**
+- Applied **SMOTE** to balance class distribution.
+
+### **4️⃣ Model Development**
+- Implemented **Random Forest, XGBoost, Gradient Boosting, and LightGBM**.
+
+### **5️⃣ Model Evaluation**
+- Used **Accuracy, Precision, Recall, F1-Score, AUC-ROC**.
+
+### **6️⃣ Hyperparameter Tuning**
+- Optimized each model using **RandomizedSearchCV**.
 
 ---
 
-## Models Implemented
-1. **Random Forest Classifier**
-2. **XGBoost Classifier**
-3. **Gradient Boosting Classifier**
-4. **LightGBM Classifier**
+## 🤖 Models Implemented
+| Model | Accuracy (Before Tuning) |
+|--------|--------------------------|
+| **Random Forest** | 83% |
+| **XGBoost** | 82% |
+| **Gradient Boosting** | 83% |
+| **LightGBM** | **84%** ✅ |
+
+✅ **LightGBM performed the best before tuning.**
 
 ---
 
-## Hyperparameter Tuning
-- Used `RandomizedSearchCV` to optimize model performance.
-- Tuned parameters included:
-  - `n_estimators`, `max_depth`, `learning_rate` (for boosting models)
-  - `min_samples_split`, `criterion`, `max_features` (for Random Forest)
-- Models achieved **similar accuracy (~84%) after tuning**.
+## 🎯 Hyperparameter Tuning
+Used **RandomizedSearchCV** to optimize models.
+
+### **Best Tuned Parameters**
+- **Random Forest:**
+  - `n_estimators`: 100
+  - `max_depth`: 20
+  - `min_samples_split`: 5
+- **XGBoost:**
+  - `learning_rate`: 0.1
+  - `max_depth`: 5
+  - `n_estimators`: 100
+- **Gradient Boosting:**
+  - `learning_rate`: 0.1
+  - `max_depth`: 5
+  - `n_estimators`: 100
+- **LightGBM:**
+  - `learning_rate`: 0.1
+  - `max_depth`: 10
+  - `n_estimators`: 100
 
 ---
 
-## Results
-### **Without Hyperparameter Tuning:**
-- **LightGBM performed the best** with an accuracy of **83.7%**.
+## 📈 Results
+| Model | Accuracy (Before Tuning) | Accuracy (After Tuning) |
+|--------|--------------------------|--------------------------|
+| **Random Forest** | 83% | 84% |
+| **XGBoost** | 82% | 84% |
+| **Gradient Boosting** | 83% | 84% |
+| **LightGBM** | **84%** ✅ | **84%** ✅ |
 
-### **With Hyperparameter Tuning:**
-- All models achieved similar accuracy of **~84%**.
-- Increasing hyperparameters further may lead to overfitting.
-
----
-
-## Conclusion
-- **LightGBM** is the best-performing model without tuning.
-- **Hyperparameter tuning** improves all models to ~84% accuracy.
-- Feature selection, data balancing, and normalization significantly impact results.
+✅ **After tuning, all models performed similarly (~84%)**.  
+⚠ **Increasing hyperparameters further may cause overfitting**.
 
 ---
 
-## How to Run
-1. **Clone the repository**:
+## 📊 Visualization
+📌 **Feature Correlation Heatmap**
+![Correlation Matrix](![image](https://github.com/user-attachments/assets/4052addb-b509-4be9-b575-c7e1f47b9064)
+
+)
+
+📌 **Class Distribution (Before & After SMOTE)**
+![Class Distribution](![image](https://github.com/user-attachments/assets/cd42d10f-090f-4bc7-82ec-ed45f6029364)
+
+)
+
+📌 **ROC Curves for Each Model**
+![ROC Curve](![image](https://github.com/user-attachments/assets/f16256eb-6d4f-4f0a-bce9-dbdc4e33c00b)![image](https://github.com/user-attachments/assets/a2454077-e460-45c3-9ce6-7fb9e73e49db)![image](https://github.com/user-attachments/assets/45b3a7f9-e7a0-4c04-9a3d-73aef11347d8)![image](https://github.com/user-attachments/assets/7a6c6e05-3ff5-42c2-90b2-e66142a84241)
+
+ )
+---
+
+## 🔍 Conclusion
+- **LightGBM** performed the best **before tuning**.
+- **All models converged to ~84% accuracy after tuning**.
+- **Feature Engineering (Outlier Removal, Normalization, SMOTE) significantly improved results.**
+- Further tuning may **overfit the model**.
+
+---
+
+## 🚀 How to Run
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/Multiclass-Classification-Project.git
-   ```
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run the classification script**:
-   ```bash
-   python MULTICLASS_CLASSIFICATION.py
-   ```
-4. **Check results and visualizations** in the console.
+   git clone https://github.com/your-username/Multiclass-Classification.git
