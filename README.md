@@ -108,4 +108,3 @@ This project focuses on **multiclass classification** to predict the severity of
    python MULTICLASS_CLASSIFICATION.py
    ```
 4. **Check results and visualizations** in the console.
-```
