@@ -170,5 +170,5 @@ Used **RandomizedSearchCV** to optimize models.
    ```bash
    python MULTICLASS CLASSIFICATION.PY
    ```
-4. **Check results and visualizations** in the console.
+4. **Check results and visualizations** in the console
 
