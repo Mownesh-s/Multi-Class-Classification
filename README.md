@@ -98,3 +98,5 @@ This project focuses on **multiclass classification** to predict the severity of
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/your-username/Multiclass-Classification-Project.git
+
+pip install -r requirements.txt
